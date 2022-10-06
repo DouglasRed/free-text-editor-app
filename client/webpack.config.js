@@ -23,7 +23,10 @@ module.exports = () => {
         title: "JATE",
       }),
 
-      new WorkboxPlugin.GenerateSW(),
+      new InjectManifest({
+        swSrc: "./src-sw.js",
+        swDest: "service-worker.js",
+      }),
 
       new WebpackPwaManifest({
         name: "JATE Text Editor",
@@ -47,15 +50,8 @@ module.exports = () => {
           },
         ],
       }),
-      new InjectManifest({
-        swSrc: "./sw.js",
-        swDest: "service-worker.js",
-      }),
-      new InjectManifest({
-        swSrc: "./src-sw.js",
-        swDest: "src-sw.js",
-      }),
     ],
+
     module: {
       rules: [
         {
