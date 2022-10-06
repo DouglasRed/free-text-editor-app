@@ -22,54 +22,60 @@ module.exports = () => {
         template: "./index.html",
         title: "JATE",
       }),
+
       new WorkboxPlugin.GenerateSW(),
-      // new WebpackPwaManifest({
-      //     name: 'Contact Cards Application',
-      //     short_name: 'Contact Cards',
-      //     description: 'Keep track of important contacts!',
-      //     background_color: '#7eb4e2',
-      //     theme_color: '#7eb4e2',
-      //     start_url: './',
-      //     publicPath: './',
-      //     icons: [
-      //       {
-      //         src: path.resolve('src/images/icon-manifest.png'),
-      //         sizes: [96, 128, 192, 256, 384, 512],
-      //         destination: path.join('assets', 'icons'),
-      //       },
-      //       {
-      //         src: path.resolve('src/images/icon-manifest.png'),
-      //         size: '1024x1024',
-      //         destination: path.join('assets', 'icons'),
-      //         purpose: 'maskable'
-      //       }
-      //     ],
-      //   }),
-      //   new InjectManifest({
-      //     swSrc: './sw.js',
-      //     swDest: 'service-worker.js',
-      //   }),
+
+      new WebpackPwaManifest({
+        name: "JATE Text Editor",
+        short_name: "Text Editor",
+        description: "Scribble down notes!",
+        background_color: "#341144",
+        theme_color: "#ddd",
+        start_url: "./",
+        publicPath: "./",
+        icons: [
+          {
+            src: path.resolve("src/images/logo.png"),
+            sizes: [96, 128, 192, 256, 384, 512],
+            destination: path.join("assets", "icons"),
+          },
+          {
+            src: path.resolve("src/images/logo.png"),
+            size: "1024x1024",
+            destination: path.join("assets", "icons"),
+            purpose: "maskable",
+          },
+        ],
+      }),
+      new InjectManifest({
+        swSrc: "./sw.js",
+        swDest: "service-worker.js",
+      }),
+      new InjectManifest({
+        swSrc: "./src-sw.js",
+        swDest: "src-sw.js",
+      }),
     ],
     module: {
       rules: [
-        // {
-        //   test: /\.css$/i,
-        //   use: ["style-loader", "css-loader"],
-        // },
-        // {
-        //   test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        //   type: "asset/resource",
-        // },
-        // {
-        //   test: /\.m?js$/,
-        //   exclude: /(node_modules|bower_components)/,
-        //   use: {
-        //     loader: "babel-loader",
-        //     options: {
-        //       presets: ["@babel/preset-env"],
-        //     },
-        //   },
-        // },
+        {
+          test: /\.css$/i,
+          use: ["style-loader", "css-loader"],
+        },
+        {
+          test: /\.(png|svg|jpg|jpeg|gif)$/i,
+          type: "asset/resource",
+        },
+        {
+          test: /\.m?js$/,
+          exclude: /(node_modules|bower_components)/,
+          use: {
+            loader: "babel-loader",
+            options: {
+              presets: [["@babel/preset-env", { targets: "defaults" }]],
+            },
+          },
+        },
       ],
     },
   };
